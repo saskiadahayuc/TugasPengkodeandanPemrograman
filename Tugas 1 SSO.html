@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SSO Undip - Login</title>
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+rel="stylesheet">
+<style>
+
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+padding: 0;
+font-family: 'Poppins', sans-serif;
+
+/* Background Baru */
+background: url('https://id-test-11.slatic.net/p/2a9ceedb1720821e18af109d7b12fa07.jpg')
+no-repeat center center fixed;
+background-size: cover;
+
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.login-box {
+background: rgba(255, 255, 255, 0.85);
+border-radius: 16px;
+box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+padding: 40px;
+width: 100%;
+max-width: 420px;
+text-align: center;
+backdrop-filter: blur(8px);
+}
+
+.logo {
+
+width: 120px;
+margin-bottom: 20px;
+}
+
+h2 {
+margin: 0;
+font-size: 24px;
+color: #2c2c54;
+font-weight: 600;
+}
+
+p {
+color: #555;
+margin-bottom: 30px;
+font-size: 14px;
+}
+
+input {
+width: 100%;
+padding: 12px;
+margin-bottom: 18px;
+border: 1.5px solid #bbb;
+border-radius: 8px;
+font-size: 15px;
+transition: border-color 0.3s ease;
+}
+
+input:focus {
+border-color: #4b0082;
+outline: none;
+}
+
+.btn {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 8px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+margin-top: 10px;
+transition: 0.3s ease;
+}
+
+.btn.login {
+background-color: #5f27cd;
+color: white;
+}
+
+.btn.login:hover {
+background-color: #341f97;
+}
+
+.btn.reset {
+background-color: #ff6b6b;
+color: white;
+}
+
+.btn.reset:hover {
+background-color: #c0392b;
+}
+
+.link {
+display: block;
+
+margin-top: 15px;
+font-size: 13px;
+color: #333;
+text-decoration: none;
+transition: 0.2s;
+}
+
+.link:hover {
+text-decoration: underline;
+color: #4b0082;
+}
+
+@media screen and (max-width: 480px) {
+.login-box {
+padding: 30px 20px;
+}
+
+.logo {
+width: 90px;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+<!-- Logo PNG Transparan -->
+<img
+src="https://1.bp.blogspot.com/-
+tThKR0i2DdQ/XrO4fFiulNI/AAAAAAAAB_s/4_UY2xeR3SsE9_5MGBdvsQtBJgNxf9e_w
+CLcBGAsYHQ/s1600/Logo%2BUndip%2BUniversitas%2BDiponegoro.png"
+alt="Logo Undip"
+class="logo"
+
+/>
+
+<h2>Single Sign On (SSO)</h2>
+<p>Universitas Diponegoro</p>
+
+<input type="text" placeholder="NIM / NIP / Email / Username" />
+<button class="btn login">Login</button>
+<button class="btn reset">Reset Password</button>
+
+<a href="#" class="link">Daftar Sekarang</a>
+<a href="#" class="link">Pendaftaran Alumni</a>
+</div>
+
+</body>
+</html>
