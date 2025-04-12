@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aplikasi Persediaan & Penjualan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet"/>
+
+<style>
+body {
+background-color: #fff0f5;
+font-family: 'Poppins', sans-serif;
+color: #880e4f;
+}
+
+h2 {
+font-weight: 600;
+margin-bottom: 30px;
+color: #ad1457;
+}
+
+.card {
+background-color: #fce4ec;
+border: none;
+border-radius: 12px;
+box-shadow: 0 4px 20px rgba(240, 98, 146, 0.1);
+margin-bottom: 30px;
+position: relative;
+
+overflow: hidden;
+}
+
+.card-header {
+background-color: #f8bbd0;
+color: #880e4f;
+font-weight: 600;
+font-size: 18px;
+border-top-left-radius: 12px;
+border-top-right-radius: 12px;
+padding: 15px 20px;
+}
+
+.ribbon {
+width: 80px;
+height: 80px;
+overflow: hidden;
+position: absolute;
+top: -5px;
+right: -5px;
+}
+
+.ribbon span {
+position: absolute;
+display: block;
+width: 120px;
+padding: 5px 0;
+background-color: #f8bbd0;
+color: #fff;
+text-align: center;
+transform: rotate(45deg);
+top: 20px;
+
+right: -30px;
+font-size: 12px;
+font-weight: 600;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-success {
+background-color: #f06292;
+border: none;
+}
+
+.btn-success:hover {
+background-color: #ec407a;
+}
+
+.btn-danger {
+background-color: #f48fb1;
+border: none;
+}
+
+.btn-danger:hover {
+background-color: #f06292;
+}
+
+.form-control:focus {
+border-color: #f06292;
+box-shadow: 0 0 0 0.2rem rgba(240, 98, 146, 0.25);
+}
+
+table thead {
+background-color: #f8bbd0;
+color: #880e4f;
+
+}
+
+table th, table td {
+vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<div class="container mt-5">
+<h2 class="text-center">Aplikasi Persediaan & Penjualan</h2>
+
+<div class="card">
+<div class="card-header">
+Tambah Produk
+<div class="ribbon"><span> </span></div>
+</div>
+<div class="card-body">
+<div class="row g-3">
+<div class="col-md-4">
+<input type="text" id="productName" class="form-control" placeholder="Nama
+Produk" />
+</div>
+<div class="col-md-3">
+<input type="number" id="productPrice" class="form-control" placeholder="Harga"
+/>
+</div>
+<div class="col-md-3">
+<input type="number" id="productStock" class="form-control" placeholder="Stok"
+/>
+</div>
+<div class="col-md-2 d-grid">
+<button class="btn btn-success" onclick="addProduct()">Tambah</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+Daftar Produk
+<div class="ribbon"><span> </span></div>
+</div>
+<div class="card-body">
+<table class="table table-bordered text-center">
+<thead>
+<tr>
+<th>Nama</th>
+<th>Harga</th>
+<th>Stok</th>
+<th>Aksi</th>
+</tr>
+</thead>
+<tbody id="productTableBody"></tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+Riwayat Penjualan
+<div class="ribbon"><span> </span></div>
+</div>
+<div class="card-body">
+<table class="table table-bordered text-center">
+<thead>
+
+<tr>
+<th>Produk</th>
+<th>Jumlah</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody id="salesHistoryBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<script>
+let products = [];
+let salesHistory = [];
+
+function addProduct() {
+let name = document.getElementById("productName").value;
+let price = parseFloat(document.getElementById("productPrice").value);
+let stock = parseInt(document.getElementById("productStock").value);
+
+if (!name || isNaN(price) || isNaN(stock)) {
+alert("Semua kolom harus diisi dengan benar!");
+return;
+}
+
+products.push({ name, price, stock });
+renderProducts();
+
+document.getElementById("productName").value = "";
+document.getElementById("productPrice").value = "";
+document.getElementById("productStock").value = "";
+
+}
+
+function renderProducts() {
+let tbody = document.getElementById("productTableBody");
+tbody.innerHTML = "";
+
+products.forEach((product, index) => {
+let row = `
+<tr>
+<td>${product.name}</td>
+<td>Rp ${product.price.toLocaleString()}</td>
+<td>${product.stock}</td>
+<td><button class='btn btn-danger btn-sm'
+onclick='sellProduct(${index})'>Jual</button></td>
+</tr>
+`;
+tbody.innerHTML += row;
+});
+}
+
+function sellProduct(index) {
+let quantity = prompt("Masukkan jumlah yang ingin dijual:");
+quantity = parseInt(quantity);
+if (isNaN(quantity) || quantity <= 0 || quantity > products[index].stock) {
+alert("Jumlah tidak valid!");
+return;
+}
+
+products[index].stock -= quantity;
+salesHistory.push({
+name: products[index].name,
+quantity: quantity,
+
+total: products[index].price * quantity
+});
+
+renderProducts();
+renderSalesHistory();
+}
+
+function renderSalesHistory() {
+let tbody = document.getElementById("salesHistoryBody");
+tbody.innerHTML = "";
+
+salesHistory.forEach(sale => {
+let row = `
+<tr>
+<td>${sale.name}</td>
+<td>${sale.quantity}</td>
+<td>Rp ${sale.total.toLocaleString()}</td>
+</tr>
+`;
+tbody.innerHTML += row;
+});
+}
+</script>
+</body>
+</html>
